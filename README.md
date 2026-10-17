@@ -8,8 +8,20 @@ Designed and tested on a **2022 Tesla Model 3** (front door, frameless glass). T
 parametric, so you can refit it to another car, radio or coax by changing a few measured numbers (see
 [Adapting it to another vehicle](#adapting-it-to-another-vehicle)).
 
-**Version 1.0** (2026-10-17). Printed, fitted and road-tested. The SMA and antenna stack has been driven outside the
+**Version 1.1** (2026-10-17). Printed, fitted and road-tested. The SMA and antenna stack has been driven outside the
 window at up to 90 mph.
+
+> **Use at your own risk.** This is a hobby design. It has **not been crash tested**, and no claims are made about
+> its safety or durability in a collision or emergency. See the [Disclaimer](#disclaimer-and-limitation-of-liability).
+
+<p align="center">
+  <img src="images/cabin_wardrive.png" alt="Cabin side: radio in the pocket, WAR DRIVE side wall" height="420">
+  <img src="images/cabin_meshcore.png" alt="Cabin side: MESHCORE / 915MHz side wall" height="420">
+  <img src="images/outside_antenna.png" alt="Antenna flange with SMA bulkhead and whip" height="420">
+  <img src="images/parts_exploded.png" alt="Clip and pocket separated, showing the dovetail rails" height="420">
+</p>
+<p align="center"><sub>Fusion 360 renders: radio in the pocket (both sides), the antenna flange, and the two printed parts apart.
+The radio, antenna and hardware are reference models; only the grey clip and pocket are printed.</sub></p>
 
 ## How it works
 
@@ -54,8 +66,9 @@ so you always get the latest version:
 | `stl/pocket_heltec_v3.stl` | **Radio pocket.** Already oriented for printing |
 | `stl/clip_rear_door_4.10mm.stl` | Clip for the rear doors (3.81 mm glass). Same design, **not print-tested** |
 | `stl/glass_thickness_gauge_4.5-8.0mm.stl` | Comb gauge for measuring other cars' glass (slots 4.5–8.0 mm; the notched end is 4.5) |
-| `cad/meshcore-window-mount-v1.0.f3d` | **Fusion 360 master model**, fully parametric (both parts plus `REF` bodies for the radio and antenna stack) |
-| `cad/clip_v1.0.step`, `cad/pocket_v1.0.step` | STEP solids for other CAD programs (not parametric; front-door clip) |
+| `cad/meshcore-window-mount.f3d` | **Fusion 360 master model**, fully parametric (both parts plus `REF` bodies for the radio and antenna stack) |
+| `cad/clip.step`, `cad/pocket.step` | STEP solids for other CAD programs (not parametric; front-door clip) |
+| `images/` | The renders above |
 | `gcode/ender3v2-pla/plate_clip-front+pocket_4h24m.gcode` | Ready-to-print plate for a **stock Creality Ender-3 V2 only** (0.4 mm nozzle, PLA+ at 220/60 °C). 4 h 24 m, 40.7 g |
 | `gcode/ender3v2-pla/clip-front_only_2h04m.gcode` | The front clip alone, same printer and settings. 2 h 04 m |
 | `tools/orient_for_print.py` | Re-orients a Fusion STL export for printing (Python + trimesh) |
@@ -98,7 +111,7 @@ Print both parts in one plate in about 4.5 h, or the clip alone in about 2 h.
 
 ## Adapting it to another vehicle
 
-Everything is driven by **user parameters**. In Fusion 360, open `cad/meshcore-window-mount-v1.0.f3d` and go to
+Everything is driven by **user parameters**. In Fusion 360, open `cad/meshcore-window-mount.f3d` and go to
 **Modify → Change Parameters**. Change the values, check that the timeline shows no errors, then export the
 `Clip` and `Pocket` bodies as STL (not the `REF` bodies).
 
@@ -114,9 +127,9 @@ Everything is driven by **user parameters**. In Fusion 360, open `cad/meshcore-w
 | `radio_drop` | 2.5 in | How far below the top of the glass the radio's top sits. Increase it if the radio or its cable hits the roof seal with the window up. The clip's inner leg grows with it |
 | `glass_tilt` | 15° | How far the glass leans in from vertical. It tilts the antenna flange so the whip stands upright |
 
-**Checked in v1.0:** the model rebuilds with no errors and no clip/pocket collision for coax 1.8, 2.5 and 3.0 mm;
-glass 4.10 and 5.3 mm; and radios of 30 × 26 × 58 mm and 35 × 30 × 70 mm. Only the front-door Model 3 values have
-been printed.
+**Checked:** the model rebuilds with no errors and no clip/pocket collision for coax 1.8, 2.5 and 3.0 mm;
+glass 4.10 and 5.3 mm; and radios of 30 × 26 × 58 mm and 35 × 30 × 70 mm. The side-wall text and icon stay centred
+on the walls for every radio size (since v1.1). Only the front-door Model 3 values have been printed.
 
 ### Fit tuning
 
@@ -130,8 +143,8 @@ been printed.
 Clearances are tuned on one Ender-3 V2. On another printer, print the pair once and adjust `slot_clear` and
 `side_rib_clear`.
 
-**Known limitation:** the side-wall text ("WAR DRIVE", "MESHCORE / 915MHz") is placed at fixed sketch positions.
-If you change the radio size or `radio_drop`, move those three sketches with the pocket, or delete the text.
+The side-wall text and icon are dimensioned to the wall centre (`wall_yc`, `wall_zc`), so they follow the pocket.
+On a much smaller radio, check that they still fit on the wall.
 
 ## Safety
 
@@ -142,10 +155,35 @@ If you change the radio size or `radio_drop`, move those three sketches with the
 - Make sure your radio settings (frequency and power) are legal where you drive. The US 915 MHz ISM band is
   license-free.
 
+## Disclaimer and limitation of liability
+
+This design is shared as-is, for hobby use, at your own risk.
+
+- **Not crash tested.** Neither this design nor any part printed from it has been crash tested or certified for use in
+  a vehicle. We make no claims about its strength, durability, retention or safety in a collision, sudden stop,
+  airbag deployment or any other emergency. In a crash, the mount, the radio, the antenna or loose parts may come
+  free and become projectiles.
+- **No responsibility for use in a vehicle.** Abot Developments and the contributors to this project are not
+  responsible for the safety or use of this design, or of any related or modified design, in any motor vehicle. That
+  includes how it is printed, what it is printed in, how it is installed, and how the vehicle is driven with it
+  fitted.
+- **No liability for injury or damage.** We are not liable for any injury, death, property or vehicle damage (for
+  example to glass, seals, trim or paint), loss, legal liability or other claim that arises from making, installing,
+  using or having this design, or a related design, in a vehicle. That includes during a collision or emergency.
+- **You are responsible** for deciding whether this mount is safe and legal for your vehicle and use, for printing
+  and installing it correctly, for inspecting it regularly, and for complying with local laws (including laws about
+  window obstructions and radio use).
+- **No warranty.** The design and files are provided "as is", without warranty of any kind, express or implied,
+  including fitness for a particular purpose. The disclaimer of warranties and limitation of liability in Section 5
+  of the [CC BY-NC-SA 4.0 license](LICENSE) also apply.
+
+If you don't accept these terms, don't print or use this design.
+
 ## Version history
 
 | Version | Date | Notes |
 |---|---|---|
+| **1.1** | 2026-10-17 | Side-wall text and icon now follow the pocket when you change the radio size. Fusion renders added. Disclaimer added. Printed geometry unchanged from 1.0 |
 | **1.0** | 2026-10-17 | First public release. Fit, radio clearance and antenna confirmed in a 2022 Model 3. New `coax_od` parameter |
 | 0.1–0.9 | 2026-10-08 → 10-16 | Nine development prints: one-piece to two-piece, dovetail redesign, radio-in-case sizing, curved cable channel, lighter clip, radio lowered to clear the roof seal |
 
